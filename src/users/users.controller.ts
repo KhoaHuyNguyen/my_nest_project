@@ -9,7 +9,7 @@ export class UsersController {
     @Get()
     async getUser() {
         const users = await this.userService.getAllUser()
-        return { data: []};
+        return { data: users};
     }
 
     @Get('detail')

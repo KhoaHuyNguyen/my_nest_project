@@ -8,6 +8,6 @@ export class UsersService {
     constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
     getAllUser(): Promise<User[]> {
-        return this.userModel.find([]);
+        return this.userModel.find();
     }
 }

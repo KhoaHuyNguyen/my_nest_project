@@ -4,27 +4,27 @@ import { AppService } from './app.service';
 class UserDTO {
   name: string;
   email: string;
-  pass: string
+  pass: string;
 }
 
-@Controller('')
+@Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get("/:id")
+  @Get()
   @Render('index')
-  getHello(@Param('id') id: string, @Query('q') q: string) {
-    return { name: q };
+  getHello() {
+    return '{ name: q };';
   }
 
-  @Get("/about")
-  getAbout(){
+  @Get('/about')
+  getAbout() {
     return { id: 12, pass: 'abc' };
   }
 
-  @Post("/login")
+  @Post('/login')
   // @Render('index')
-  postLogin(@Body() user: UserDTO){
+  postLogin(@Body() user: UserDTO) {
     return { user };
   }
 }
