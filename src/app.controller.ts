@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Query, Render } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  Render,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 
 class UserDTO {

@@ -1,13 +1,29 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersController } from './users/users.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ProductsModule } from './products/products.module';
+import { Product } from './products/products.entity';
+import { Category } from './products/categories.entity';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://127.0.0.1:27017/Nest_JS'), UsersModule],
+  imports: [
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/Nest_JS'),
+    UsersModule,
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'khoahuy04102004',
+      database: 'nestjs-demo-app',
+      entities: [Product, Category],
+      synchronize: true,
+    }),
+    ProductsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
