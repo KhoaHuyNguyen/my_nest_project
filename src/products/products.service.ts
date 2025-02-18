@@ -21,10 +21,6 @@ export class ProductsService {
 
   public create() {
     const product = new Product();
-    product.name = "abc";
-    product.image = "123456";
-    product.price = 44.44;
-
     return this.productRepository.save(product);
   }
 
