@@ -12,7 +12,7 @@ export class Category {
   @Column()
   image: string;
 
-  @ManyToOne(type => Product, product => product.category)
+  @OneToMany(type => Product, product => product.category)
   products: Product[];
   product: any;
 }

@@ -8,6 +8,8 @@ import { ProductsModule } from './products/products.module';
 import { Product } from './products/products.entity';
 import { Category } from './categories/categories.entity';
 import { CategoriesModule } from './categories/categories.module';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
   imports: [
@@ -22,6 +24,10 @@ import { CategoriesModule } from './categories/categories.module';
       database: 'nestjs-demo-app',
       entities: [Product, Category],
       synchronize: true,
+    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: true,
     }),
     ProductsModule,
     CategoriesModule,
