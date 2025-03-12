@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './products.entity';
 import { Repository } from 'typeorm';
 import { ProductParams } from './products.controller';
+import { ProductModel } from './product.model';
 
 @Injectable()
 export class ProductsService {
@@ -20,7 +21,7 @@ export class ProductsService {
     return product;
   }
 
-  public create(product: ProductParams) {
+  public create(product: ProductModel) {
     return this.productRepository.save(product);
   }
 
@@ -40,7 +41,7 @@ export class ProductsService {
 
   async delete(id: number) {
     const product = await this.productRepository.findOne({where: {id}});
-    this.productRepository.delete({});
+    this.productRepository.delete({id});
     return product;
   }
 }

@@ -19,6 +19,7 @@ export class ProductsResolver {
     @Mutation(() => ProductModel)
     async createProduct(@Args('name') name: string, @Args('image') image: string, @Args('price') price: number) {
         const params = {
+            id: Math.floor(200),
             name: "name",
             image: "image",
             price: 12345
