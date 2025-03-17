@@ -10,9 +10,33 @@ import { Category } from './categories/categories.entity';
 import { CategoriesModule } from './categories/categories.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { JwtService } from '@nestjs/jwt';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 
 @Module({
   imports: [
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true, 
+        auth: {
+          user: 'huykhoanguyen0@gmail.com',
+          pass: 'ryvoyahwfztecybw', 
+        },
+      },
+      defaults: {
+        from: '"nest-modules" <huykhoanguyen0@gmail.com>',
+      },
+      template: {
+        dir: process.cwd() + '/templates',
+        adapter: new EjsAdapter(),
+        options: {
+          strict: true,
+        },
+      },
+    }),
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/Nest_JS'),
     UsersModule,
     TypeOrmModule.forRoot({
@@ -33,6 +57,6 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
     CategoriesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, JwtService],
 })
 export class AppModule {}

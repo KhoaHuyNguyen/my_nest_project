@@ -1,5 +1,7 @@
 import { Body, Controller, Get, Param, Post, Put, Render } from '@nestjs/common';
 import { ProductsService } from './products.service';
+import { AuthGuard } from 'src/auth.guard';
+import { UseGuards } from '@nestjs/common';
 
 export interface ProductParams {
   name: string,
@@ -11,6 +13,7 @@ export interface ProductParams {
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
+  @UseGuards(AuthGuard)
   @Get('')
   @Render('product/index')
   public async getAll() {
@@ -24,6 +27,7 @@ export class ProductsController {
     return product;
   }
 
+  @UseGuards(AuthGuard)
   @Post('create')
   public async create(@Body() body: ProductParams) {
     const product = await this.productsService.create(body);

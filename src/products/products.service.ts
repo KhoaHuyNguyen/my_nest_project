@@ -21,7 +21,7 @@ export class ProductsService {
     return product;
   }
 
-  public create(product: ProductModel) {
+  public create(product: ProductParams) {
     return this.productRepository.save(product);
   }
 
