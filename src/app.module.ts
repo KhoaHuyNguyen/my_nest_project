@@ -13,6 +13,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { JwtService } from '@nestjs/jwt';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
+import { ScheduleModule } from '@nestjs/schedule';
+import { ChatGateway } from './chat/chat.gateway';
 
 @Module({
   imports: [
@@ -53,10 +55,11 @@ import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
       driver: ApolloDriver,
       autoSchemaFile: true,
     }),
+    ScheduleModule.forRoot(),
     ProductsModule,
     CategoriesModule,
   ],
   controllers: [AppController],
-  providers: [AppService, JwtService],
+  providers: [AppService, JwtService, ChatGateway],
 })
 export class AppModule {}

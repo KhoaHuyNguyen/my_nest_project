@@ -24,23 +24,24 @@ export class AppController {
     private mailerService: MailerService
   ) {}
 
-  @Get('/')
-  // @Render('index')
-  getHello(@Param('id') id: string, @Query('q') q: string) {
-    this.mailerService
-      .sendMail({
-        to: 'huykhoanguyen0@gmail.com', 
-        from: 'huykhoanguyen0@gmail.com', 
-        subject: 'Testing Nest MailerModule ✔', 
-        template: 'mail'
-      })
-      .then((data) => {
-        console.log(data)
-      })
-      .catch((error) => {
-        console.log(error)
-      });
-    return { name: 'ABC' };
+  @Get('')
+  @Render('index')
+  getHello() {
+    // async getHello(@Param('id') id: string, @Query('q') q: string) {
+    //   this.mailerService
+    //     .sendMail({
+    //       to: 'huykhoanguyen0@gmail.com', 
+    //       from: 'huykhoanguyen0@gmail.com', 
+    //       subject: 'Testing Nest MailerModule ✔', 
+    //       template: 'mail'
+    //     })
+    //     .then((data) => {
+    //       console.log(data)
+    //     })
+    //     .catch((error) => {
+    //       console.log(error)
+    //     });
+    // }   
   }
 
   @Get('/about')
@@ -67,7 +68,7 @@ export class AppController {
   }
 
   @Post('/refresh')
-  async refresh(@Body("refreshToken") refreshToken: string) {
+  async refresh(@Body('refreshToken') refreshToken: string) {
     console.log(refreshToken);
     try {
       const payload = await this.jwtService.verify(refreshToken, {

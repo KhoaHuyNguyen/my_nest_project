@@ -1,15 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './products.entity';
 import { Repository } from 'typeorm';
 import { ProductParams } from './products.controller';
-import { ProductModel } from './product.model';
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectRepository(Product) private productRepository: Repository<Product>,
   ) {}
+
+  private readonly logger = new Logger(ProductsService.name);
 
   async getAll(): Promise<Product[]> {
     const products = await this.productRepository.find();
@@ -44,4 +46,9 @@ export class ProductsService {
     this.productRepository.delete({id});
     return product;
   }
+
+  // @Cron('30 * * * * *')
+  // handleCron() {
+  //   this.logger.debug('Called every 30');
+  // }
 }
